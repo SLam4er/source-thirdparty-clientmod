@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2021 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2024 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -24,10 +24,11 @@
 #define _SDL_aaudio_h
 
 #include "../SDL_sysaudio.h"
+#include <stdbool.h>
 #include <aaudio/AAudio.h>
 
 /* Hidden "this" pointer for the audio functions */
-#define _THIS   SDL_AudioDevice *this
+#define _THIS SDL_AudioDevice *this
 
 struct SDL_PrivateAudioData
 {
@@ -37,14 +38,12 @@ struct SDL_PrivateAudioData
     Uint8 *mixbuf;
     int mixlen;
     int frame_size;
-
-    /* Resume device if it was paused automatically */
-    int resume;
+    int devid;
 };
- 
+
 void aaudio_ResumeDevices(void);
 void aaudio_PauseDevices(void);
-
+SDL_bool aaudio_DetectBrokenPlayState(void);
 
 #endif /* _SDL_aaudio_h */
 
